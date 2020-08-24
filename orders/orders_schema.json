@@ -1,0 +1,26 @@
+{
+  "metricFieldSpecs": [],
+  "dimensionFieldSpecs": [
+    {
+      "dataType": "STRING",
+      "name": "OrderID"
+    },
+    {
+      "dataType": "STRING",
+      "name": "CustomerID"
+    },
+    {
+      "dataType": "STRING",
+      "name": "EmployeeID"
+    },
+    {
+      "dataType": "STRING",
+      "name": "OrderDate"
+    },
+    {
+      "dataType": "STRING",
+      "name": "ShipperID"
+    }
+  ],
+  "schemaName": "orders"
+}

@@ -1,0 +1,71 @@
+
+
+Pre requisite : Running Pinot at localhost:9000
+
+1) Load customers and orders data in pinot
+
+
+======================        Loading Customers Data to Pinot         =============
+         |
+         |_ bin
+		 |   |_pinot-admin.sh
+		 |	 
+		 |_ examples 
+             |_stream
+			 |_batch
+			     |_baseballStats
+				 |_airlineStats
+				 |_customers
+				     |_rawdata
+					 |   |_customers_data.csv
+				     |_customers_offline_table_config.json
+					 |_customers_schema.json
+					 |_ingestionJobSpec.yaml
+
+
+
+
+
+
+>> bin/pinot-admin.sh AddTable  -tableConfigFile examples/batch/customers/customers_offline_table_config.json -schemaFile examples/batch/customers/customers_schema.json -exec
+
+>> bin/pinot-admin.sh LaunchDataIngestionJob -jobSpecFile examples/batch/customers/ingestionJobSpec.yaml
+
+
+======================        Loading Orders Data to Pinot         =============  
+         |
+         |_ bin
+		 |   |_pinot-admin.sh
+		 |	 
+		 |_ examples 
+             |_stream
+			 |_batch
+			     |_baseballStats
+				 |_airlineStats
+				 |_orders
+				     |_rawdata
+					 |   |_orders_data.csv
+				     |_orders_offline_table_config.json
+					 |_orders_schema.json
+					 |_ingestionJobSpec.yaml
+
+
+>> bin/pinot-admin.sh AddTable  -tableConfigFile examples/batch/orders/orders_offline_table_config.json -schemaFile examples/batch/orders/orders_schema.json -exec
+
+>> bin/pinot-admin.sh LaunchDataIngestionJob -jobSpecFile examples/batch/orders/ingestionJobSpec.yaml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,74 @@
+
+========  Prerequisite : MySQL Server 5.7  ==============
+
+mysql> create database testdb;
+mysql> use testdb;
+mysql> create table shippers(ShipperID varchar(10),ShipperName varchar(50),Phone varchar(20));
+
+mysql> insert into shippers values('1','Speedy Express','(503) 555-9831');
+mysql> insert into shippers values('2','United Package','(503) 555-3199');
+mysql> insert into shippers values('3','Federal Shipping','(503) 555-9931');
+
+
+mysql> select * from testdb.shippers;
++-----------+------------------+----------------+
+| ShipperID | ShipperName      | Phone          |
++-----------+------------------+----------------+
+| 1         | Speedy Express   | (503) 555-9831 |
+| 2         | United Package   | (503) 555-3199 |
+| 3         | Federal Shipping | (503) 555-9931 |
++-----------+------------------+----------------+
+3 rows in set (0.00 sec)
+
+
+
+
+=========================== Create MySQL Properties file in presto container ====================
+
+1) Log on to presto container
+>> docker exec -it -u root presto /bin/bash
+
+2) Create mysql.properties
+>> cd etc/catalog
+>> vi mysql.properties
+
+connector.name=mysql
+connection-url=jdbc:mysql://<mysql_ip>:3306
+connection-user=root
+connection-password=Root@12345
+>> exit
+
+
+3) Stop and start presto container
+>> docker stop presto
+>> docker start presto
+
+
+4) Check the UI ar localhost:8088/ui	
+	
+	
+5) Now logon to container as normal user
+>> docker exec -it  presto /bin/bash
+
+6) Launch Presto CLI and connect to mysql catalog
+>> ./presto --server localhost:8080 --catalog mysql --schema testdb
+
+     presto:testdb> show tables;
+	  Table   
+	----------
+	 shippers 
+	(1 row)
+	
+	 
+	 
+	 presto:testdb> select * from pinot.default.customers;
+	 presto:testdb> select * from pinot.default.orders;
+	 presto:testdb> select * from mysql.testdb.shippers;
+	
+======================================= ****** Imp ****** ================================================	
+	 
+7) Now Write a Presto query which gets the data from two datasouces	 (Pinot & MySQL)
+
+   presto:testdb> SELECT pinot.default.orders.OrderID,pinot.default.orders.OrderDate,mysql.testdb.shippers.ShipperID,mysql.testdb.shippers.ShipperName,mysql.testdb.shippers.Phone FROM pinot.default.orders INNER JOIN mysql.testdb.shippers ON pinot.default.orders.ShipperID=mysql.testdb.shippers.ShipperID;
+	 
+	     

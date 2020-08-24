@@ -1,0 +1,25 @@
+{
+  "tableName": "orders",
+  "tableType": "OFFLINE",
+  "segmentsConfig": {
+    "segmentPushType": "APPEND",
+    "segmentAssignmentStrategy": "BalanceNumSegmentAssignmentStrategy",
+    "schemaName": "orders",
+    "replication": "1"
+  },
+  "tenants": {
+  },
+  "tableIndexConfig": {
+    "loadMode": "HEAP",
+    "invertedIndexColumns": [
+      "OrderID",
+      "CustomerID",
+      "EmployeeID",
+      "ShipperID"
+    ]
+  },
+  "metadata": {
+    "customConfigs": {
+    }
+  }
+}

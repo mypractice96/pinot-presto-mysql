@@ -1,0 +1,22 @@
+{
+  "tableName": "customers",
+  "tableType": "OFFLINE",
+  "segmentsConfig": {
+    "segmentPushType": "APPEND",
+    "segmentAssignmentStrategy": "BalanceNumSegmentAssignmentStrategy",
+    "schemaName": "customers",
+    "replication": "1"
+  },
+  "tenants": {
+  },
+  "tableIndexConfig": {
+    "loadMode": "HEAP",
+    "invertedIndexColumns": [
+      "CustomerID"
+    ]
+  },
+  "metadata": {
+    "customConfigs": {
+    }
+  }
+}

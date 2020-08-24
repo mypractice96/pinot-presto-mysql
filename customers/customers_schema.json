@@ -1,0 +1,34 @@
+{
+  "metricFieldSpecs": [],
+  "dimensionFieldSpecs": [
+    {
+      "dataType": "STRING",
+      "name": "CustomerID"
+    },
+    {
+      "dataType": "STRING",
+      "name": "CustomerName"
+    },
+    {
+      "dataType": "STRING",
+      "name": "ContactName"
+    },
+    {
+      "dataType": "STRING",
+      "name": "Address"
+    },
+    {
+      "dataType": "STRING",
+      "name": "City"
+    },
+    {
+      "dataType": "STRING",
+      "name": "PostalCode"
+    },
+    {
+      "dataType": "STRING",
+      "name": "Country"
+    }
+  ],
+  "schemaName": "customers"
+}

@@ -1,0 +1,54 @@
+
+
+1) Run Presto as a container
+>>  docker run -d --name presto -p 8088:8080 mypractice96/prestopinot:latest
+    
+	In browser visit localhost:8088
+
+
+2)Login to container as root
+>> docker exec -it -u root presto /bin/bash
+
+
+3) After logging in 
+>> apt-get update && apt-get install -y less
+>> vi etc/catalog/pinot.properties
+
+    Change Pinot URL : 
+	pinot.controller-urls=localhost:9000
+	pinot.limit-large-for-segment=100 (no of rows in resultset)
+>> exit
+
+
+3) Now Stop and start the container to restart presto
+>> docker stop presto
+>> docker start presto
+
+
+4) Check the UI ar localhost:8088/ui	
+	
+	
+5) Now logon to container as normal user
+>> docker exec -it  presto /bin/bash
+
+6) Launch Presto CLI
+>> ./presto --server localhost:8080 --catalog pinot --schema default
+
+     presto:default> show tables;
+	 presto:default> show catalogs;
+	 presto:default> show schemas;
+	 
+	 
+	 presto:default> select * from customers;
+	 presto:default> select * from orders;
+
+
+============================================*** Imp ***===========================================
+
+     Join Query on two different Pinot data tables Orders and Customers
+
+     presto:default> SELECT orders.OrderID,orders.OrderDate, customers.CustomerId,customers.CustomerName,customers.Address,customers.City FROM orders INNER JOIN customers ON orders.CustomerID=customers.CustomerID;	
+     
+	 
+	 
+	 
